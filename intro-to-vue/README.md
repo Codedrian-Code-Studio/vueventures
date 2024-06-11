@@ -4,4 +4,7 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 ## What I've discovered
 
-- `ref` is used to declare a reactive state
+### Day 1
+
+- Attribute binding, class binding, style binding, event binding, and two-way binding.
+- I've learned the usefulness of making a **computed property**.
