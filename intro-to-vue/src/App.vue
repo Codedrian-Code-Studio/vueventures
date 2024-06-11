@@ -1,10 +1,10 @@
 <script setup>
-import Age from './components/Age.vue'
+import Product from './components/Product.vue'
 
 </script>
 
 <template>
-  <Age />
+  <Product />
 </template>
 
 <!-- <style>
