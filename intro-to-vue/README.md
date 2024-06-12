@@ -8,3 +8,7 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 - Attribute binding, class binding, style binding, event binding, and two-way binding.
 - I've learned the usefulness of making a **computed property**.
+
+### Day 2
+
+- I've learned how to `emit` events. It is basically telling the parent component that something has happened in the child component.

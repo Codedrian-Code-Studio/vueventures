@@ -1,17 +1,16 @@
 <script setup>
-import { ref, toRefs, defineProps, defineEmits } from 'vue';
+import { ref, defineProps, defineEmits } from 'vue';
 import DynamicImage from './DynamicImage.vue';
 
-const emit = defineEmits(['updateCart']);
 const props = defineProps({
 	cart: {
 		type: Object,
 		required: true
-	}
-});
-const { cart } = toRefs(props);
-function addToCart() {
-	emit('updateCart', cart.value + 1);
+		}
+	});
+const emit = defineEmits(['updateCart']);
+function addToCart(color) {
+	emit('updateCart', color);
 }
 const inStock = ref(true);
 const stock = ref(10);
@@ -19,19 +18,21 @@ const productDetails = ref(['30% wool', '50% cotton', '20% polyester']);
 const sockImage = ref('socks_green');
 const variants = ref([
 	{ id: 2233, color: 'green', image: 'socks_green', stock: 199},
-	{ id: 2234, color: 'blue', image: 'socks_blue', stock: 0},
+	{ id: 2234, color: 'blue', image: 'socks_blue', stock: 10},
 ]);
 const selectedVariant = ref(0);
 
 function incrementStock() {
 	return stock.value++;
 }
-function updateVariant(variant) {
+function updateVariant(variant, index) {
 	sockImage.value = variant.image;
 	inStock.value = variant.stock > 0;
+	selectedVariant.value = index;
 }
 </script>
 <template>
+	<p>{{ variants[selectedVariant].id }}</p>
 	<div class="flex h-2/4">
 		<DynamicImage :imageName="sockImage" altText="Product 1 Image" />
 		<section class="w-2/4">
@@ -49,14 +50,14 @@ function updateVariant(variant) {
 					<ul class="text-left w-1/4 mx-auto">
 						<li v-for="detail in  productDetails">{{ detail }}</li>
 					</ul>
-					<button class="w-2/5 mx-auto mt-5" @click="addToCart" :disabled="!inStock" :class="{hidden: !inStock}">Add to cart</button>
+					<button class="w-2/5 mx-auto mt-5" @click="addToCart(variants[selectedVariant].color)" :disabled="!inStock" :class="{hidden: !inStock}">Add to cart</button>
 				</div>
 				<div class="w-1/4">
 					<h3>Variants</h3>
 					<ul>
 						<li v-for="(variant, index) in variants"
 							:key="id"
-							@click="updateVariant(variant)" class="hover:bg-blue-700 text-left">
+							@click="updateVariant(variant, index)" class="hover:bg-blue-700 text-left">
 							<span>{{ variant.color }}</span>
 						</li>
 					</ul>
